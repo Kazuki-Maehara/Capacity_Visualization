@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  {% load static %}
+  <link href="{% static '/css/login.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+  <div class="login-page">
+    <div class="form">
+      <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group has-feedback">
+          {{ field }}
+        </div>
+        {% endfor %}
+
+        <div class="row">
+          {% for error in form.non_field_errors %}
+          <div class="alert" role="alert">
+            <p>{{ error }}</p>
+          </div>
+          {% endfor %}
+          <div class="col-cs-4">
+            <button type="submit" class="">Log in</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

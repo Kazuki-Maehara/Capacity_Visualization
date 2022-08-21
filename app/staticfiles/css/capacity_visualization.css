@@ -123,6 +123,11 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
 
 .draggable {
   opacity: 0.9;
+  stroke: white;
+  stroke-width: 0.5;
+
+  rx: 1;
+  ry: 1;
 }
 
 

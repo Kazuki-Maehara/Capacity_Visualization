@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import DataVisualizationView
+from .views import DataVisualizationView, Login
 
 # # For test staticfiles
 # from django.views.static import serve
@@ -27,6 +27,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("introduction/", DataVisualizationView.as_view(),
          name="data_visualization"),
+    path("login/", Login.as_view(),
+         name="login"),
+         
     path("sample_data/", DataVisualizationView.as_view(),
          name="test"),
 ]
