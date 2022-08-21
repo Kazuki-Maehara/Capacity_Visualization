@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+
+  <!-- Load crc32.js   -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crc-32/1.2.2/crc32.min.js"></script>
+
+
+  <!-- Load css -->
+  {% load static %}
+  <link href="{% static "/css/capacity_visualization.css" %}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+<h1>テスト用サンプルデータ</h1>
+  <!-- <div>
+    <button type="button" id="download_button">Download</button>
+  </div>
+  <div>
+    <label for="upload_button">ファイルを選択: </label>
+    <input type="file" id="upload_button">
+  </div> -->
+
+
+
+
+  <!-- Create a div where the graph will take place -->
+  <div id="my_dataviz"></div>
+
+
+
+  <div class="control_panel">
+    <span class="control_title">コントロール</span>
+    <div>
+      <label for="produnction-volue">MC生産実績(台/月): </label>
+      <input type="number" id="production-volume" min="30000" max="90000" value="70000">
+    </div>
+    <div>
+      <a href="https://newsroom.mazda.com/ja/publicity/release/" target="_blank">MC生産台数実績　確認</a>
+    </div>
+    <label for="co-input">係数スライダ(0.50〜1.50): </label>
+    <input type="range" name="coefficient" id="co-input" min="0.5" max="1.5" step="0.01" value="1.0">
+    <div>
+      <span>稼働算出見込み前提(台/月): </span>
+      <span id="pd-v"></span>
+      <span id="input_indicator"></span>
+      <span id="pd-pro"></span>
+    </div>
+  </div>
+
+
+
+
+  <div id="my_table"></div>
+
+
+
+
+  <script type="module">
+    import {
+      drag
+    } from "https://cdn.skypack.dev/d3-drag@3";
+    const handler = drag();
+  </script>
+  <script src="{% static '/js/capacity_visualization.js' %}"></script>
+
+</body>
+
+</html>
