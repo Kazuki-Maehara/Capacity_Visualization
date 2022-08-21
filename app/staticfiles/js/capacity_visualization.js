@@ -644,18 +644,23 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
 
     // ---------- Prepare data for exporting. ----------
-    // let csvString = "Label,Country,Value\n";
-    // y_keys.map(function(k) {
-    //   let current = organized[k];
-    //   current.map(function(o) {
-    //     csvString += k + "," + o.Country + "," + o.Value + "\n";
-    //   });
-    // });
+    document.getElementById("download_button").firstElementChild.style.display = "flex";
+    let csvString = "区分,トン数,品番,品名,成形時間,備考\n";
+    Object.keys(organized).map(function(k) {
+      organized[k].map(function(o) {
+        if (o["品番"] === "dummy") {
+          return;
+        }
+        csvString += o["区分"] + "," + o["トン数"] + "," + o["品番"] + "," +
+          o["品名"] + "," + o["成形時間"] + "," + o["備考"] + "\n";
+      });
+    });
 
 
 
     // ---------- Export a csv file. ----------
     let downloadButton = document.getElementById("download_button");
+
 
     downloadButton.onclick = function() {
       let blob = new Blob([csvString], {
