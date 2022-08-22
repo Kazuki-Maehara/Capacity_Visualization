@@ -125,35 +125,50 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   background: #ffcccc;
 }
 
+
 .draggable {
-  opacity: 0.8;
+  opacity: 0.7;
   stroke: silver;
   stroke-width: 1;
-  rx: 1;
-  ry: 1;
+  stroke-opacity: 0.3;
+  rx: 2;
+  ry: 2;
 }
 
 #input_indicator {
   background: linear-gradient(to right, #FFFF66 0%, #FFFF66 100%);
 }
 
-#download_button {
-  background: #DDD;
+.flex_container {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+  padding: 10px 10px;
+  border: solid;
+}
+
+#download_span {
+  visibility: hidden;
+}
+
+.button_span {
+  background: #ddd;
   border-radius: 3px;
   position: relative;
-  display: none;
+  display: flex;
   justify-content: space-around;
   align-items: center;
   margin: 0 auto;
-  max-width: 180px;
-  padding: 10px 20px;
+  width: 20%;
+  padding: 10px 25px;
   color: #313131;
   transition: 0.3s ease-in-out;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 6px -2px #555,
+    3px 3px 8px rgba(255, 255, 255, 0.8) inset;
 }
 
-#download_button:after {
+.button_span:after {
   content: "";
   position: absolute;
   top: 50%;
@@ -171,11 +186,11 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   transform: translateY(-50%) rotate(45deg);
 }
 
-#download_button:hover {
+.button_span:hover {
   background: #6bb6ff;
   color: #FFF;
 }
 
-#download_button:hover:after {
+.button_span:hover:after {
   right: 1.4rem;
 }

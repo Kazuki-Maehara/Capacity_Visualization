@@ -23,7 +23,7 @@ var margin = {
     bottom: 40,
     left: 90
   },
-  width = 700 - margin.left - margin.right,
+  width = document.body.clientWidth - margin.left - margin.right,
   height = 900 - margin.top - margin.bottom;
 
 
@@ -82,13 +82,13 @@ gradient.append("stop")
   .attr("offset", "0%")
   .attr("class", "stop1");
 gradient.append("stop")
-  .attr("offset", "47%")
+  .attr("offset", "49%")
   .attr("class", "stop2");
 gradient.append("stop")
   .attr("offset", "50%")
   .attr("class", "stop3");
 gradient.append("stop")
-  .attr("offset", "53%")
+  .attr("offset", "51%")
   .attr("class", "stop4");
 gradient.append("stop")
   .attr("offset", "100%")
@@ -157,8 +157,8 @@ function beforeDrag() {
 
 // ---------- during a drag event ----------
 function dragging(event) {
-  const upperLimit = 550;
-  const lowerLimit = 350;
+  const upperLimit = 700;
+  const lowerLimit = 100;
   // ---------- x minimum value restriction ----------
   const inverted_x_pos = pre_x.invert(event.x);
   const inverted_offset = pre_x.invert(scaledLimitWidth) / 2;
@@ -212,7 +212,8 @@ let tt_machinery = tooltip.append("div"),
   tt_operationHours = tooltip.append("div"),
   tt_class = tooltip.append("div"),
   tt_partNumber = tooltip.append("div"),
-  tt_partName = tooltip.append("div");
+  tt_partName = tooltip.append("div"),
+  tt_remark = tooltip.append("div");
 
 
 
@@ -236,7 +237,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
   // ---------- Draw Bars ----------
   function generateLabel(d) {
-    return d["区分"] + "_" + d["トン数"] + "t";
+    return d["区分"] + " / " + d["トン数"];
   }
 
 
@@ -288,9 +289,10 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
   // ---------- Multiply molding-time with coefficient from range-input ----------
   let coInput = document.getElementById("co-input");
+  let coLabel = document.getElementById("co-label");
   coInput.oninput = function() {
     data.map(function(d) {
-      if (d["備考"] === "実測") {
+      if (d["備考"] === coLabel.value) {
         d["成形時間"] = (parseFloat(coInput.value) * parseFloat(d["org_成形時間"])).toString();
       }
     });
@@ -337,7 +339,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
   let yLabels = (function() {
     let keys = [];
     data.map(function(d) {
-      if (!keys.includes(d["区分"])) keys.push(d["区分"] + "_" + d["トン数"] + "t");
+      if (!keys.includes(d["区分"])) keys.push(generateLabel(d));
     });
     return keys;
   })();
@@ -352,6 +354,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     .call(d3.axisBottom(x))
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
+    .attr("class", "axis-label")
     .style("text-anchor", "end");
 
   // ---------- Add Y axis ----------
@@ -360,9 +363,12 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     .domain(yLabels.map(function(k) {
       return k;
     }))
-    .padding(.4);
+    .padding(0.4);
+
   svg.append("g")
     .call(d3.axisLeft(y))
+    .selectAll("text")
+    .attr("class", "axis-label");
 
 
 
@@ -529,10 +535,11 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
       .style("top", (event.pageY - 20) + "px")
 
     tt_operationHours.html("<span>成形時間: " + Math.round(d["成形時間"] * Math.pow(10, 2)) / Math.pow(10, 2) + "h</span>");
-    tt_class.html("<span>トン数: " + d["トン数"] + "t</span>");
+    tt_class.html("<span>トン数: " + d["トン数"] + "</span>");
     tt_machinery.html("<span>成形機: " + d["区分"] + "</span>");
-    tt_partNumber.html("<span id=\"before-pnum\">■</span><span>品番: " + d["品番"] + "</span>");
+    tt_partNumber.html("<span id=\"before-pnum\" style=\"opacity: 0.7;\">■</span><span>品番: " + d["品番"] + "</span>");
     tt_partName.html("<span>品名: " + d["品名"] + "</span>");
+    tt_remark.html("<span>備考: " + d["備考"] + "</span>")
 
     d3.select("#before-pnum").style("color", function() {
       return event.target.getAttribute("fill");
@@ -554,7 +561,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
   // ---------- before a drag event ----------
   function dragstarted(event) {
     d3.select(this)
-      .style("opacity", 0.5);
+      .style("opacity", 0.4);
 
     let organized = organizeRects(data);
     createTable(organized, event);
@@ -621,11 +628,11 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
     if (event.subject.nearestIndex === undefined) {
       d3.select(this)
-        .style("opacity", 1.0);
+        .style("opacity", 0.7);
       return;
     }
     d3.select(this)
-      .style("opacity", 1.0)
+      .style("opacity", 0.7)
       .attr("x", data[event.subject.nearestIndex].x + x(data[event.subject.nearestIndex]["成形時間"]))
       .attr("y", data[event.subject.nearestIndex].y)
 
@@ -644,7 +651,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
 
     // ---------- Prepare data for exporting. ----------
-    document.getElementById("download_button").style.display = "flex";
+    document.getElementById("download_span").style.visibility = "visible";
     let csvString = "区分,トン数,品番,品名,成形時間,備考\n";
     Object.keys(organized).map(function(k) {
       organized[k].map(function(o) {
@@ -659,8 +666,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
 
     // ---------- Export a csv file. ----------
-    let downloadButton = document.getElementById("download_button");
-
+    let downloadButton = document.getElementById("download_span");
 
     downloadButton.onclick = function() {
       let blob = new Blob([csvString], {
@@ -668,7 +674,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
       });
       let link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = "test.csv";
+      link.download = "出力ファイル.csv";
       link.click();
     };
 
