@@ -21,7 +21,7 @@ var margin = {
     top: 20,
     right: 30,
     bottom: 40,
-    left: 90
+    left: 120
   },
   width = document.body.clientWidth - margin.left - margin.right,
   height = 900 - margin.top - margin.bottom;
@@ -150,7 +150,7 @@ function beforeDrag() {
     .ease(d3.easePoly)
     .style("left", (event.pageX + 25) + "px")
     .style("top", (event.pageY - 20) + "px")
-    let limitHour = pre_x.invert(d3.select(this).attr("x")) + pre_x.invert(scaledLimitWidth / 2);
+  let limitHour = pre_x.invert(d3.select(this).attr("x")) + pre_x.invert(scaledLimitWidth / 2);
   lltt_limit.html("<span>設定限界稼働時間: " + Math.round(limitHour) + "h</span>");
 }
 
@@ -288,12 +288,46 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
 
   // ---------- Multiply molding-time with coefficient from range-input ----------
+  let remarkCoeffs = (function() {
+    let objs = {"- 全て -": "1.0"};
+    data.map(function(d) {
+      if (!(d["備考"] in objs)) objs[d["備考"]] = "1.0";
+    });
+    return objs;
+  })();
+
   let coInput = document.getElementById("co-input");
   let coLabel = document.getElementById("co-label");
+  let remarkSelector = document.getElementById("remark-selector");
+  Object.keys(remarkCoeffs).map(function(k) {
+    let opt = document.createElement("option");
+    opt.value = remarkCoeffs[k];
+    opt.text = k;
+    remarkSelector.appendChild(opt);
+  });
+
+  remarkSelector.oninput = function() {
+    let targetIdx = remarkSelector.selectedIndex
+    let key = remarkSelector.options[targetIdx].label;
+    coInput.value = remarkCoeffs[key];
+    document.getElementById("input_indicator").textContent = parseFloat(coInput.value).toFixed(2);
+    updateVolumeProjection();
+  };
+
   coInput.oninput = function() {
+    console.log(remarkCoeffs)
+    let targetIdx = remarkSelector.selectedIndex
     data.map(function(d) {
-      if (d["備考"] === coLabel.value) {
+      if (remarkSelector.options[targetIdx].label === "- 全て -") {
         d["成形時間"] = (parseFloat(coInput.value) * parseFloat(d["org_成形時間"])).toString();
+        Object.keys(remarkCoeffs).map(function(k){
+          remarkCoeffs[k] = coInput.value;
+        })
+
+      }
+       else if (d["備考"] === remarkSelector.options[targetIdx].label) {
+        d["成形時間"] = (parseFloat(coInput.value) * parseFloat(d["org_成形時間"])).toString();
+        remarkCoeffs[remarkSelector.options[targetIdx].label] = coInput.value;
       }
     });
     document.getElementById("input_indicator").textContent = parseFloat(coInput.value).toFixed(2);
@@ -316,9 +350,8 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
       createTable(organized, dummyEvent)
     }
 
-
     updateVolumeProjection();
-  }
+  };
 
   let productionInput = document.getElementById("production-volume");
   productionInput.oninput = updateVolumeProjection;
