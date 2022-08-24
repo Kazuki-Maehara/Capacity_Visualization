@@ -12,6 +12,14 @@ h1:after {
   width: 20%;
 }
 
+#my_dataviz {
+  user-select: none;
+}
+
+#co-input {
+  width: 30%;
+}
+
 .control_panel {
   position: relative;
   margin-top: 2em;
@@ -36,7 +44,7 @@ h1:after {
 }
 
 table {
-  width: 100%;
+  width: 80%;
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -59,7 +67,7 @@ table th {
   border-bottom: 1px solid #3c6690;
   box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3) inset;
   width: auto;
-  padding: 10px 0;
+  padding: 6px 0;
 }
 
 table td {
@@ -69,7 +77,7 @@ table td {
   border-top: none;
   box-shadow: 0px -3px 5px 1px #eee inset;
   width: auto;
-  padding: 10px 0;
+  padding: 6px 0;
 }
 
 table td:last-child {
@@ -145,24 +153,26 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
 
 .flex_container {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin: 10px 0;
   padding: 10px 10px;
-  border: solid;
+  /* border: solid; */
 }
 
 #download_span {
   visibility: hidden;
 }
 
+
 .button_span {
+  user-select: none;
   background: #ddd;
-  border-radius: 3px;
+  border-radius: 8px;
   position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   width: 20%;
   padding: 10px 25px;
   color: #313131;
@@ -190,11 +200,27 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   transform: translateY(-50%) rotate(45deg);
 }
 
-.button_span:hover {
+#download_span:hover {
   background: #6bb6ff;
+  color: #FFF;
+}
+
+#upload_span:hover {
+  background: #ef4645;
   color: #FFF;
 }
 
 .button_span:hover:after {
   right: 1.4rem;
+}
+
+#download_span:active {
+  transition: 0.2s ease-in-out;
+  color: black;
+  box-shadow: 2px 2px 4px #555 inset;
+}
+#upload_span:active {
+  transition: 0.2s ease-in-out;
+  color: black;
+  box-shadow: 2px 2px 4px #555 inset;
 }
