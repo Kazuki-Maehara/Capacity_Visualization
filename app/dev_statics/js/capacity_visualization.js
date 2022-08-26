@@ -684,7 +684,8 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
 
     // ---------- Prepare data for exporting. ----------
-    document.getElementById("download_span").style.visibility = "visible";
+    document.getElementById("download_span").style.display = "flex";
+    document.getElementById("upload_span").style.display = "none";
     let csvString = "区分,トン数,品番,品名,成形時間,備考\n";
     Object.keys(organized).map(function(k) {
       organized[k].map(function(o) {

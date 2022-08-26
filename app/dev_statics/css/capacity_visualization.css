@@ -13,21 +13,36 @@ h1:after {
 }
 
 #my_dataviz {
+  margin: 5px auto 20px auto;
   user-select: none;
+  border: solid;
+  border-width: 0.5px;
+  border-radius: 2%;
+  border-color: silver;
+  box-shadow: 3px 3px 6px 2px #555,
+    3px 3px 10px 3px rgba(255, 255, 255, 0.8) inset;
 }
 
 #co-input {
-  width: 30%;
+  width: 40%;
+}
+
+.sticky-item {
+  user-select: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  top: 10%;
+  z-index: 1;
+  position: sticky;
+  float: right;
 }
 
 .control_panel {
-  position: relative;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  margin-right: 40%;
+  width: 35%;
   padding: 0.5em 1em;
   border: solid 3px #95ccff;
   border-radius: 8px;
+  box-shadow: 2px 2px 4px 1px #555,
+    3px 3px 10px 3px rgba(255, 255, 255, 0.8) inset;
 }
 
 .control_panel .control_title {
@@ -44,9 +59,12 @@ h1:after {
 }
 
 table {
+  margin: 30px auto 0px 20px;
   width: 80%;
   border-collapse: separate;
   border-spacing: 0;
+  box-shadow: 3px 3px 6px 2px #555,
+    3px 3px 10px 3px rgba(255, 255, 255, 0.8) inset;
 }
 
 table th:first-child {
@@ -137,7 +155,6 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   font-size: 1.3em;
 }
 
-
 .draggable {
   opacity: 0.7;
   stroke: silver;
@@ -153,18 +170,20 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
 
 .flex_container {
   display: flex;
-  justify-content: flex-start;
-  margin: 10px 0;
+  justify-content: space-around;
+  margin: 80px auto 20px 10px;
   padding: 10px 10px;
+  align-items: end;
   /* border: solid; */
 }
 
 #download_span {
-  visibility: hidden;
+  display: none;
 }
 
-
 .button_span {
+  width: 30%;
+  height: 29px;
   user-select: none;
   background: #ddd;
   border-radius: 8px;
@@ -172,8 +191,7 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* margin: 0 auto; */
-  width: 20%;
+  margin: auto 0;
   padding: 10px 25px;
   color: #313131;
   transition: 0.3s ease-in-out;
@@ -219,6 +237,7 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   color: black;
   box-shadow: 2px 2px 4px #555 inset;
 }
+
 #upload_span:active {
   transition: 0.2s ease-in-out;
   color: black;

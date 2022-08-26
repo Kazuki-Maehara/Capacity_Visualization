@@ -21,55 +21,56 @@
 </head>
 
 <body>
-  <h1>テスト用サンプルデータ</h1>
-  <div class="flex_container">
-    <span class="button_span" id="download_span">ダウンロード</span>
-    <span class="button_span" id="upload_span">アップロード</span>
-  </div>
-  <!-- <div>
+
+  <section>
+
+    <h1>テスト用サンプルデータ</h1>
+
+    <div class="control_panel sticky-item">
+      <span class="control_title">コントロール</span>
+      <div>
+        <label for="produnction-volue">MC生産実績(台/月): </label>
+        <input type="number" id="production-volume" min="30000" max="90000" value="70000">
+      </div>
+      <div>
+        <a href="https://newsroom.mazda.com/ja/publicity/release/" target="_blank">MC生産台数実績　確認</a>
+      </div>
+      <div>
+        <label for="co-input">係数スライダ(0.50〜2.00): </label>
+        <input type="range" id="co-input" min="0.5" max="2.0" step="0.01" value="1.0">
+      </div>
+      <div>
+        <label for="remark-selector">係数反映対象： </label>
+        <select id="remark-selector">
+        </select>
+      </div>
+      <div>
+        <span>稼働算出見込み前提(台/月): </span>
+        <span id="pd-v"></span>
+        <span id="input_indicator"></span>
+        <span id="pd-pro"></span>
+      </div>
+    </div>
+
+    <div class="flex_container">
+      <span class="button_span" id="download_span">ダウンロード</span>
+      <span class="button_span" id="upload_span">アップロード</span>
+    </div>
+    <!-- <div>
       <label for="upload_button">ファイルを選択: </label>
       <input type="file" id="upload_button">
     </div> -->
 
 
 
-
-  <!-- Create a div where the graph will take place -->
-  <div id="my_dataviz"></div>
-
-
-
-  <div class="control_panel">
-    <span class="control_title">コントロール</span>
-    <div>
-      <label for="produnction-volue">MC生産実績(台/月): </label>
-      <input type="number" id="production-volume" min="30000" max="90000" value="70000">
-    </div>
-    <div>
-      <a href="https://newsroom.mazda.com/ja/publicity/release/" target="_blank">MC生産台数実績　確認</a>
-    </div>
-    <div>
-      <label for="co-input">係数スライダ(0.50〜2.00): </label>
-      <input type="range" id="co-input" min="0.5" max="2.0" step="0.01" value="1.0">
-    </div>
-    <div>
-      <label for="remark-selector">係数反映対象： </label>
-      <select id="remark-selector">
-      </select>
-    </div>
-    <div>
-      <span>稼働算出見込み前提(台/月): </span>
-      <span id="pd-v"></span>
-      <span id="input_indicator"></span>
-      <span id="pd-pro"></span>
-    </div>
-  </div>
+    <!-- Create a div where the graph will take place -->
+    <div id="my_dataviz"></div>
+  </section>
 
 
-
-
-  <div id="my_table"></div>
-
+  <section>
+    <div id="my_table"></div>
+  </section>
 
 
 
@@ -80,6 +81,7 @@
     const handler = drag();
   </script>
   <script src="{% static '/js/capacity_visualization.js' %}"></script>
+
 
 </body>
 
