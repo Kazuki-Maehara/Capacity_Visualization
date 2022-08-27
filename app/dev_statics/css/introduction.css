@@ -26,8 +26,25 @@ h2:after {
   background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
 }
 
+h3 {
+  width: 25%;
+  padding: 0.5em;
+  font-size: 1em;
+  color: #494949;
+  background: #fffaf4;
+  border-left: solid 5px #ffaf58;
+}
+
 p {
   margin-left: 1em;
+}
+
+dl {
+  margin-left: 2em;
+}
+
+dt::after{
+  content: ":";
 }
 
 .first::first-letter {

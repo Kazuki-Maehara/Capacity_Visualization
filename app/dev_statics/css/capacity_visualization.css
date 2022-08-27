@@ -223,7 +223,14 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   color: #FFF;
 }
 
-#upload_span:hover {
+input[type="file"] {
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
+  display: none;
+}
+
+#upload_label:hover {
   background: #ef4645;
   color: #FFF;
 }
@@ -238,7 +245,7 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   box-shadow: 2px 2px 4px #555 inset;
 }
 
-#upload_span:active {
+#upload_label:active {
   transition: 0.2s ease-in-out;
   color: black;
   box-shadow: 2px 2px 4px #555 inset;
