@@ -12,12 +12,37 @@ h1:after {
   width: 20%;
 }
 
+#my_dataviz {
+  margin: 5px auto 20px auto;
+  user-select: none;
+  border: solid;
+  border-width: 0.5px;
+  border-radius: 2%;
+  border-color: silver;
+  box-shadow: 3px 3px 6px 2px #555,
+    3px 3px 10px 3px rgba(255, 255, 255, 0.8) inset;
+}
+
+#co-input {
+  width: 40%;
+}
+
+.sticky-item {
+  user-select: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  top: 10%;
+  z-index: 1;
+  position: sticky;
+  float: right;
+}
+
 .control_panel {
-  position: relative;
-  margin: 2em 0;
+  width: 35%;
   padding: 0.5em 1em;
   border: solid 3px #95ccff;
   border-radius: 8px;
+  box-shadow: 2px 2px 4px 1px #555,
+    3px 3px 10px 3px rgba(255, 255, 255, 0.8) inset;
 }
 
 .control_panel .control_title {
@@ -34,9 +59,12 @@ h1:after {
 }
 
 table {
-  width: 100%;
+  margin: 30px auto 0px 20px;
+  width: 80%;
   border-collapse: separate;
   border-spacing: 0;
+  box-shadow: 3px 3px 6px 2px #555,
+    3px 3px 10px 3px rgba(255, 255, 255, 0.8) inset;
 }
 
 table th:first-child {
@@ -57,7 +85,7 @@ table th {
   border-bottom: 1px solid #3c6690;
   box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3) inset;
   width: auto;
-  padding: 10px 0;
+  padding: 6px 0;
 }
 
 table td {
@@ -67,7 +95,7 @@ table td {
   border-top: none;
   box-shadow: 0px -3px 5px 1px #eee inset;
   width: auto;
-  padding: 10px 0;
+  padding: 6px 0;
 }
 
 table td:last-child {
@@ -123,35 +151,56 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   background: #ffcccc;
 }
 
+.axis-label {
+  font-size: 1.3em;
+}
+
 .draggable {
-  opacity: 0.9;
+  opacity: 0.7;
   stroke: silver;
   stroke-width: 1;
-  rx: 1;
-  ry: 1;
+  stroke-opacity: 0.3;
+  rx: 2;
+  ry: 2;
 }
 
 #input_indicator {
   background: linear-gradient(to right, #FFFF66 0%, #FFFF66 100%);
 }
 
-#download_button span {
-  background: #DDD;
-  border-radius: 3px;
-  position: relative;
+.flex_container {
+  display: flex;
+  justify-content: space-around;
+  margin: 80px auto 20px 10px;
+  padding: 10px 10px;
+  align-items: end;
+  /* border: solid; */
+}
+
+#download_span {
   display: none;
+}
+
+.button_span {
+  width: 30%;
+  height: 29px;
+  user-select: none;
+  background: #ddd;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 auto;
-  max-width: 180px;
-  padding: 10px 20px;
+  margin: auto 0;
+  padding: 10px 25px;
   color: #313131;
   transition: 0.3s ease-in-out;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 3px 3px 6px -2px #555,
+    3px 3px 8px rgba(255, 255, 255, 0.8) inset;
 }
 
-#download_button span:after {
+.button_span:after {
   content: "";
   position: absolute;
   top: 50%;
@@ -169,11 +218,28 @@ table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
   transform: translateY(-50%) rotate(45deg);
 }
 
-#download_button span:hover {
+#download_span:hover {
   background: #6bb6ff;
   color: #FFF;
 }
 
-#download_button span:hover:after {
+#upload_span:hover {
+  background: #ef4645;
+  color: #FFF;
+}
+
+.button_span:hover:after {
   right: 1.4rem;
+}
+
+#download_span:active {
+  transition: 0.2s ease-in-out;
+  color: black;
+  box-shadow: 2px 2px 4px #555 inset;
+}
+
+#upload_span:active {
+  transition: 0.2s ease-in-out;
+  color: black;
+  box-shadow: 2px 2px 4px #555 inset;
 }

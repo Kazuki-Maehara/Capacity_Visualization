@@ -10,6 +10,8 @@ from .forms import LoginForm
 class DataVisualizationView(LoginRequiredMixin, TemplateView):
     template_name = "capacity_visualization.html"
 
+class Introduction(TemplateView):
+    template_name = "introduction.html"
 
 class Login(LoginView):
     """ Log-in page """
