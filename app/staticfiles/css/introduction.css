@@ -1,0 +1,260 @@
+h1 {
+  border-bottom: solid 3px #cce4ff;
+  position: relative;
+}
+
+h1:after {
+  position: absolute;
+  content: " ";
+  display: block;
+  border-bottom: solid 3px #5472cd;
+  bottom: -3px;
+  width: 20%;
+}
+
+h2 {
+  position: relative;
+  width: 50%;
+  font-size: 1.3em;
+}
+
+h2:after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: -webkit-linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+  background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+}
+
+p {
+  margin-left: 1em;
+}
+
+.first::first-letter {
+  font-weight: bold;
+  font-size: 40px;
+  color: red;
+  /* text-decoration: underline;
+  text-decoration-color: red; */
+}
+
+.rotate-r {
+  display: inline-block;
+  transform: rotate(45deg);
+}
+
+.white-black {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  margin: 0 0.5em;
+  transform: rotateX(180deg)
+}
+
+.up-blue {
+  display: inline-block;
+  transform: translate(2px, -5px) rotate(-25deg);
+  color: blue;
+}
+
+.rotate-l {
+  display: inline-block;
+  transform: rotate(-20deg);
+}
+
+.down {
+  display: inline-block;
+  transform: translate(0px, 7px);
+}
+
+.rotate-y-180 {
+  display: inline-block;
+  transform: rotateY(180deg);
+  /* font-size: 1.3em; */
+  margin: 0px 0.5em;
+}
+
+.up {
+  display: inline-block;
+  transform: translate(0px, -7px);
+}
+
+.strong-green {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 30px;
+  background-color: green;
+  color: white;
+  margin: 0 0.4em 0 0;
+}
+
+.rotate-x-180 {
+  display: inline-block;
+  transform: rotateX(180deg);
+}
+
+.rotate-y-180-red {
+  display: inline-block;
+  transform: rotateY(180deg);
+  color: red;
+}
+
+.blue-big-reverse {
+  display: inline-block;
+  color: blue;
+  font-size: 25px;
+  transform: rotateZ(160deg);
+}
+
+.mirror-rotate {
+  display: inline-block;
+  padding: 2em 2em;
+  background: linear-gradient(45deg, rgba(0,0,255,0.1), rgba(255,0,0,0.1));
+  transform: rotateY(180deg);
+  transition: all 0.0s 0s ease;
+}
+
+.mirror-rotate:hover {
+  transform: rotateY(0deg);
+}
+
+.production-link {
+  font-size: 2.0em;
+  text-align: center;
+  margin: 30px 0px;
+}
+
+.production-link span {
+font-size: 1.0rem;
+}
+
+img {
+  margin: 0px 15px;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+.shout {
+  margin: 0 0 0 1em;
+  font-size: 3.0rem;
+  font-family: 'Rock Salt', cursive;
+}
+
+.control_panel {
+  position: relative;
+  margin: 2em 0;
+  padding: 0.5em 1em;
+  border: solid 3px #95ccff;
+  border-radius: 8px;
+}
+
+.control_panel .control_title {
+  position: absolute;
+  display: inline-block;
+  top: -13px;
+  left: 10px;
+  padding: 0 9px;
+  line-height: 1;
+  font-size: 19px;
+  background: #FFF;
+  color: #95ccff;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table th:first-child {
+  border-radius: 5px 0 0 0;
+}
+
+table th:last-child {
+  border-radius: 0 5px 0 0;
+  border-right: 1px solid #3c6690;
+}
+
+table th {
+  text-align: center;
+  color: white;
+  background: linear-gradient(#829ebc, #225588);
+  border-left: 1px solid #3c6690;
+  border-top: 1px solid #3c6690;
+  border-bottom: 1px solid #3c6690;
+  box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3) inset;
+  width: auto;
+  padding: 10px 0;
+}
+
+table td {
+  text-align: center;
+  border-left: 1px solid #a8b7c5;
+  border-bottom: 1px solid #a8b7c5;
+  border-top: none;
+  box-shadow: 0px -3px 5px 1px #eee inset;
+  width: auto;
+  padding: 10px 0;
+}
+
+table td:last-child {
+  border-right: 1px solid #a8b7c5;
+}
+
+table tr td:nth-of-type(7), table tr th:nth-of-type(7) {
+  display: none;
+}
+
+.stop1 {
+  stop-color: yellow;
+  stop-opacity: 0.2;
+}
+
+.stop2 {
+  stop-color: yellow;
+  stop-opacity: 0.2;
+}
+
+.stop3 {
+  stop-color: red;
+  stop-opacity: 1.0;
+}
+
+.stop4 {
+  stop-color: red;
+  stop-opacity: 0.1;
+}
+
+.stop5 {
+  stop-color: red;
+  stop-opacity: 0.1;
+}
+
+.limit-rect {
+  opacity: 1.0;
+  shape-rendering: crispEdges;
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: #ffffff;
+  padding: 5px 12px 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  color: #666666;
+  opacity: 0.0;
+}
+
+.limit-line-tooltip {
+  background: #ffcccc;
+}
+
+.draggable {
+  opacity: 0.9;
+}
+
+#input_indicator {
+  background: linear-gradient(to right, #FFFF66 0%, #FFFF66 100%);
+}
