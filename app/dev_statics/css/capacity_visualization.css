@@ -13,6 +13,7 @@ h1:after {
 }
 
 #my_dataviz {
+  display: none;
   margin: 5px auto 20px auto;
   user-select: none;
   border: solid;
@@ -21,6 +22,40 @@ h1:after {
   border-color: silver;
   box-shadow: 3px 3px 6px 2px #555,
     3px 3px 10px 3px rgba(255, 255, 255, 0.8) inset;
+}
+
+.notion-parent {
+  display: flex;
+  justify-content: space-around;
+}
+
+#upload-notion {
+  font-size: 1.7em;
+  position: relative;
+  text-align: center;
+  padding: 0.25em 1em;
+  margin: 100px auto auto auto;
+  width: 50%;
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+}
+
+#upload-notion:before, #upload-notion:after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 2px;
+  height: -webkit-calc(100% + 20px);
+  height: calc(100% + 20px);
+  background-color: black;
+}
+
+#upload-notion:before {
+  left: 10px;
+}
+
+#upload-notion:after {
+  right: 10px;
 }
 
 #co-input {

@@ -24,9 +24,9 @@ function hashBytes(text) {
 
 let uplink;
 let uploadButton = document.getElementById("upload_input");
-uploadButton.onchange = function(e) {
-  uplink = document.createElement("a");
-  uplink.href = URL.createObjectURL(e.target.files[0]);
+// uploadButton.onchange = function(e) {
+//   uplink = document.createElement("a");
+//   uplink.href = URL.createObjectURL(e.target.files[0]);
 
   document.getElementById("download_span").style.display = "flex";
   document.getElementById("upload_label").style.display = "none";
@@ -37,7 +37,7 @@ uploadButton.onchange = function(e) {
 
   // Parse the Data
   // /staticfiles/csv/data_sample.csv or uplink
-  d3.csv(uplink).then(function(data) {
+  d3.csv("/staticfiles/csv/data_sample.csv").then(function(data) {
 
     // ---------- Generate Y-keys ----------
     let yLabels = (function() {
@@ -728,4 +728,4 @@ uploadButton.onchange = function(e) {
 
   });
 
-};
+// };

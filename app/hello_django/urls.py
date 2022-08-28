@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import Login, Introduction, DataVisualizationView
+from .views import Login, IntroductionView, DataVisualizationView, SampleView
 
 # # For test staticfiles
 # from django.views.static import serve
@@ -26,7 +26,7 @@ from .views import Login, Introduction, DataVisualizationView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path("introduction/", Introduction.as_view(),
+    path("introduction/", IntroductionView.as_view(),
          name="introduction"),
 
     path("dv-production/", DataVisualizationView.as_view(),
@@ -35,11 +35,11 @@ urlpatterns = [
     path("login/", Login.as_view(),
          name="login"),
 
-    path("sample-data/", DataVisualizationView.as_view(),
-         name="test"),
+    path("sample/", SampleView.as_view(),
+         name="sample"),
 ]
 
-# #  # For test staticfiles
+#  # For test staticfiles
 # urlpatterns += [
 #     re_path(r'^staticfiles/(?P<path>.*)$', serve,
 #         {'document_root': settings.STATIC_ROOT}),
