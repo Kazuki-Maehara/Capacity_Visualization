@@ -50,7 +50,6 @@ uploadButton.onchange = function(e) {
 
 
     let totalHeight = new Set(yLabels).size * 40 + 80;
-    console.log(totalHeight);
 
     // set the dimensions and margins of the graph
     var margin = {
@@ -698,14 +697,24 @@ uploadButton.onchange = function(e) {
 
 
       // ---------- Prepare data for exporting. ----------
+      function escapeCsv(str) {
+        let result;
+        result = str.replace(/\"/g, "\"\"");
+
+        if (result.indexOf(",") >= 0) {
+          result = "\"" + result + "\"";
+        }
+        return result;
+      }
+
       let csvString = "区分,トン数,品番,品名,成形時間,備考\n";
       Object.keys(organized).map(function(k) {
         organized[k].map(function(o) {
           if (o["品番"] === "dummy") {
             return;
           }
-          csvString += o["区分"] + "," + o["トン数"] + "," + o["品番"] + "," +
-            o["品名"] + "," + o["成形時間"] + "," + o["備考"] + "\n";
+          csvString += o["区分"] + "," + o["トン数"] + "," + escapeCsv(o["品番"]) + "," +
+            escapeCsv(o["品名"]) + "," + o["成形時間"] + "," + o["備考"] + "\n";
         });
       });
 
@@ -713,9 +722,9 @@ uploadButton.onchange = function(e) {
 
       // ---------- Export a csv file. ----------
       let downloadButton = document.getElementById("download_span");
-
+      let bom  = new Uint8Array([0xEF, 0xBB, 0xBF]);
       downloadButton.onclick = function() {
-        let blob = new Blob([csvString], {
+        let blob = new Blob([bom, csvString], {
           type: "text/csv"
         });
         let link = document.createElement("a");

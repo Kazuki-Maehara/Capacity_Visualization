@@ -50,7 +50,6 @@ let uploadButton = document.getElementById("upload_input");
 
 
     let totalHeight = new Set(yLabels).size * 40 + 80;
-    console.log(totalHeight);
 
     // set the dimensions and margins of the graph
     var margin = {
