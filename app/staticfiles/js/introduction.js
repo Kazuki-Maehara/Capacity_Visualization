@@ -151,7 +151,7 @@ function beforeDrag() {
     .style("left", (event.pageX + 25) + "px")
     .style("top", (event.pageY - 20) + "px")
     let limitHour = pre_x.invert(d3.select(this).attr("x")) + pre_x.invert(scaledLimitWidth / 2);
-  lltt_limit.html("<span>設定限界稼働時間: " + Math.round(limitHour) + "h</span>");
+  lltt_limit.html("<span>設定限界: " + Math.round(limitHour) + "</span>");
 }
 
 
@@ -175,7 +175,7 @@ function dragging(event) {
   }
 
   let limitHour = pre_x.invert(d3.select(this).attr("x")) + pre_x.invert(scaledLimitWidth / 2);
-  lltt_limit.html("<span>設定限界稼働時間: " + Math.round(limitHour) + "h</span>");
+  lltt_limit.html("<span>設定限界: " + Math.round(limitHour) + "</span>");
 }
 
 // ---------- After a drag event ----------
@@ -197,7 +197,7 @@ function limit_mouseover(event) {
     .style("top", (event.pageY - 20) + "px")
 
   let limitHour = pre_x.invert(d3.select(this).attr("x")) + pre_x.invert(scaledLimitWidth / 2);
-  lltt_limit.html("<span>設定限界時間: " + Math.round(limitHour) + "h</span>");
+  lltt_limit.html("<span>設定限界: " + Math.round(limitHour) + "</span>");
 }
 
 
@@ -236,12 +236,12 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
   // ---------- Draw Bars ----------
   function generateLabel(d) {
-    return d["区分"] + "_" + d["トン数"] + "t";
+    return d["可変クラス"] + "_" + d["固定クラス"] + "t";
   }
 
 
   data.map(function(d) {
-    d["org_成形時間"] = d["成形時間"];
+    d["org_対象データ"] = d["対象データ"];
   });
 
 
@@ -258,7 +258,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     for (let i = 0; i < tableObj.length; i++) {
       let tr = document.createElement("tr");
       if (i === 0) {
-        let tableHeaderArray = ["区分", "トン数", "品番", "品名", "成形時間", "備考", "y", ];
+        let tableHeaderArray = ["可変クラス", "固定クラス", "識別コード", "名称", "対象データ", "タグ", "y", ];
         for (let m = 0; m < tableHeaderArray.length; m++) {
           let th = document.createElement("th");
           th.textContent = tableHeaderArray[m];
@@ -267,10 +267,10 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
       } else {
         Object.keys(tableObj[i]).map(function(k) {
           let td = document.createElement("td");
-          if (k !== "x" && k !== "org_成形時間") {
-            if (k === "成形時間") {
+          if (k !== "x" && k !== "org_対象データ") {
+            if (k === "対象データ") {
               let tempFloat = Math.round(parseFloat(tableObj[i][k]) * Math.pow(10, 2)) / Math.pow(10, 2);
-              td.textContent = tempFloat.toString() + "h";
+              td.textContent = tempFloat.toString();
             } else {
               td.textContent = tableObj[i][k];
             }
@@ -290,8 +290,8 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
   let coInput = document.getElementById("co-input");
   coInput.oninput = function() {
     data.map(function(d) {
-      if (d["備考"] === "実測") {
-        d["成形時間"] = (parseFloat(coInput.value) * parseFloat(d["org_成形時間"])).toString();
+      if (d["タグ"] === "実測") {
+        d["対象データ"] = (parseFloat(coInput.value) * parseFloat(d["org_対象データ"])).toString();
       }
     });
     document.getElementById("input_indicator").textContent = parseFloat(coInput.value).toFixed(2);
@@ -299,7 +299,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     let organized = organizeRects(data);
     d3.selectAll(".draggable")
       .attr("width", function(d) {
-        return x(d["成形時間"])
+        return x(d["対象データ"])
       });
 
     if (document.getElementById("createdTable")) {
@@ -337,7 +337,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
   let yLabels = (function() {
     let keys = [];
     data.map(function(d) {
-      if (!keys.includes(d["区分"])) keys.push(d["区分"] + "_" + d["トン数"] + "t");
+      if (!keys.includes(d["可変クラス"])) keys.push(d["可変クラス"] + "_" + d["固定クラス"] + "t");
     });
     return keys;
   })();
@@ -386,7 +386,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
     let labels = [];
     dataLocal.map(function(d) {
-      let label = d["区分"] + "___" + d["トン数"];
+      let label = d["可変クラス"] + "___" + d["固定クラス"];
       if (!labels.includes(label)) {
         labels.push(label);
       }
@@ -397,13 +397,13 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     let zeroRects = [];
     for (let i = 0; i < labels.length; i++) {
       zeroRects[i] = {
-        "区分": labels[i].split("___")[0],
-        "トン数": labels[i].split("___")[1],
-        "品番": "dummy",
-        "品名": "dummy",
-        "成形時間": "0",
-        "org_成形時間": "0",
-        "備考": "dummy",
+        "可変クラス": labels[i].split("___")[0],
+        "固定クラス": labels[i].split("___")[1],
+        "識別コード": "dummy",
+        "名称": "dummy",
+        "対象データ": "0",
+        "org_対象データ": "0",
+        "タグ": "dummy",
       };
     }
 
@@ -480,7 +480,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
       let x_temp = x(0);
       for (let i = 0; i < current.length; i++) {
         current[i].x = x_temp;
-        x_temp = current[i].x + x(current[i]["成形時間"]);
+        x_temp = current[i].x + x(current[i]["対象データ"]);
       }
     });
 
@@ -505,16 +505,16 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     .transition()
     .ease(d3.easePolyOut)
     .duration(function(d) {
-      return 4000 / d["成形時間"]
+      return 4000 / d["対象データ"]
     })
     .delay(function(d, i) {
       return 5 * i
     })
     .attr("width", function(d) {
-      return x(d["成形時間"]);
+      return x(d["対象データ"]);
     })
     .attr("fill", function(d) {
-      return color(d["品名"]);
+      return color(d["名称"]);
     })
 
 
@@ -528,11 +528,11 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
       .style("left", (event.pageX + 25) + "px")
       .style("top", (event.pageY - 20) + "px")
 
-    tt_operationHours.html("<span>成形時間: " + Math.round(d["成形時間"] * Math.pow(10, 2)) / Math.pow(10, 2) + "h</span>");
-    tt_class.html("<span>トン数: " + d["トン数"] + "t</span>");
-    tt_machinery.html("<span>成形機: " + d["区分"] + "</span>");
-    tt_partNumber.html("<span id=\"before-pnum\">■</span><span>品番: " + d["品番"] + "</span>");
-    tt_partName.html("<span>品名: " + d["品名"] + "</span>");
+    tt_operationHours.html("<span>対象データ: " + Math.round(d["対象データ"] * Math.pow(10, 2)) / Math.pow(10, 2) + "</span>");
+    tt_class.html("<span>固定クラス: " + d["固定クラス"] + "</span>");
+    tt_machinery.html("<span>可変クラス: " + d["可変クラス"] + "</span>");
+    tt_partNumber.html("<span id=\"before-pnum\">■</span><span>識別コード: " + d["識別コード"] + "</span>");
+    tt_partName.html("<span>名称: " + d["名称"] + "</span>");
 
     d3.select("#before-pnum").style("color", function() {
       return event.target.getAttribute("fill");
@@ -579,11 +579,11 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     }
 
     // ---------- x maximum value restriction ----------
-    if (width > (event.subject.x + x(event.subject["成形時間"]))) {
+    if (width > (event.subject.x + x(event.subject["対象データ"]))) {
       d3.select(this)
         .attr("x", event.subject.x);
     } else {
-      event.subject.x = width - x(event.subject["成形時間"]);
+      event.subject.x = width - x(event.subject["対象データ"]);
       d3.select(this)
         .attr("x", event.subject.x);
     }
@@ -593,7 +593,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
 
 
     let distances = data.map((d) => {
-      return Math.sqrt((d.x + x(d["成形時間"]) - event.x) ** 2 + (d.y + y.bandwidth() / 2 - event.y) ** 2)
+      return Math.sqrt((d.x + x(d["対象データ"]) - event.x) ** 2 + (d.y + y.bandwidth() / 2 - event.y) ** 2)
     });
     let ascendingOrdered = distances.slice();
     ascendingOrdered.sort(function(a, b) {
@@ -603,7 +603,7 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     let nearestIndex = distances.indexOf(nearest);
 
 
-    if (data[nearestIndex]["区分"] === event.subject["区分"] && data[nearestIndex]["品番"] === event.subject["品番"]) {
+    if (data[nearestIndex]["可変クラス"] === event.subject["可変クラス"] && data[nearestIndex]["識別コード"] === event.subject["識別コード"]) {
       nearest = ascendingOrdered[1];
       nearestIndex = distances.indexOf(nearest);
     }
@@ -626,14 +626,14 @@ d3.csv('/staticfiles/csv/data_sample.csv').then(function(data) {
     }
     d3.select(this)
       .style("opacity", 1.0)
-      .attr("x", data[event.subject.nearestIndex].x + x(data[event.subject.nearestIndex]["成形時間"]))
+      .attr("x", data[event.subject.nearestIndex].x + x(data[event.subject.nearestIndex]["対象データ"]))
       .attr("y", data[event.subject.nearestIndex].y)
 
 
-    event.subject.x = data[event.subject.nearestIndex].x + x(data[event.subject.nearestIndex]["成形時間"]);
+    event.subject.x = data[event.subject.nearestIndex].x + x(data[event.subject.nearestIndex]["対象データ"]);
     event.subject.y = data[event.subject.nearestIndex].y
-    event.subject["区分"] = data[event.subject.nearestIndex]["区分"];
-    // event.subject["トン数"] = data[event.subject.nearestIndex]["トン数"];
+    event.subject["可変クラス"] = data[event.subject.nearestIndex]["可変クラス"];
+    // event.subject["固定クラス"] = data[event.subject.nearestIndex]["固定クラス"];
     delete event.subject.nearestIndex;
 
 

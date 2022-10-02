@@ -12,6 +12,7 @@ h1:after {
   width: 20%;
 }
 
+
 h2 {
   position: relative;
   width: 50%;
@@ -55,74 +56,6 @@ dt::after{
   text-decoration-color: red; */
 }
 
-.rotate-r {
-  display: inline-block;
-  transform: rotate(45deg);
-}
-
-.white-black {
-  display: inline-block;
-  background-color: black;
-  color: white;
-  margin: 0 0.5em;
-  transform: rotateX(180deg)
-}
-
-.up-blue {
-  display: inline-block;
-  transform: translate(2px, -5px) rotate(-25deg);
-  color: blue;
-}
-
-.rotate-l {
-  display: inline-block;
-  transform: rotate(-20deg);
-}
-
-.down {
-  display: inline-block;
-  transform: translate(0px, 7px);
-}
-
-.rotate-y-180 {
-  display: inline-block;
-  transform: rotateY(180deg);
-  /* font-size: 1.3em; */
-  margin: 0px 0.5em;
-}
-
-.up {
-  display: inline-block;
-  transform: translate(0px, -7px);
-}
-
-.strong-green {
-  display: inline-block;
-  font-weight: bold;
-  font-size: 30px;
-  background-color: green;
-  color: white;
-  margin: 0 0.4em 0 0;
-}
-
-.rotate-x-180 {
-  display: inline-block;
-  transform: rotateX(180deg);
-}
-
-.rotate-y-180-red {
-  display: inline-block;
-  transform: rotateY(180deg);
-  color: red;
-}
-
-.blue-big-reverse {
-  display: inline-block;
-  color: blue;
-  font-size: 25px;
-  transform: rotateZ(160deg);
-}
-
 .mirror-rotate {
   display: inline-block;
   padding: 2em 2em;
@@ -149,6 +82,9 @@ img {
   margin: 0px 15px;
 }
 
+small {
+  font-size: 0.3em;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
 .shout {

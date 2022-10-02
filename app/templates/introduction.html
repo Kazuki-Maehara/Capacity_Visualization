@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+
+  <!-- Load crc32.js   -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crc-32/1.2.2/crc32.min.js"></script>
+
+
+  <!-- Load css -->
+  {% load static %}
+  <link href="{% static "/css/introduction.css" %}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+  <h1>イントロダクション</h1>
+
+  <p class="first">
+    最近、スタッフのワークロードだったり、設備のキャパだったり、
+    データ積み上げて編成して承認もらって...ってプロセスがめんどくさい感じなので。
+    承認者に編成まで丸投げしてしまおうってスタンスのウェブアプリです。
+    データの可視化と対話的な操作がメイン機能です。<br>
+    (個人のポートフォリオ用)
+  </p>
+
+  <p class="first">
+    既存の商用アプリだと、プロジェクト・人事労務管理系が多くて、しかもいろいろ複雑な機能ついてるのでちょっとした使い回しやりにくそう。じゃあ作っとけってノリで。<br>
+    例えばこの辺とか
+  </p>
+
+  <ul>
+    <li>
+      <a href="https://www.crowdlog.jp/lp/excel/?network=google_g&amp;placement=&amp;keyword=%E5%B7%A5%E6%95%B0%E7%AE%A1%E7%90%86&amp;device=&gclid=CjwKCAjw3qGYBhBSEiwAcnTRLpgvUb2qfaezqg6-FOjqSZXRBe9uYZyrIKILUNdD7rxJIPjoZaVP7xoCSMEQAvD_BwE"
+        target="_blank">
+        CloudLog
+      </a>
+    </li>
+    <li>
+      <a href="https://www.freee.co.jp/lp/project-management/03/?gclid=CjwKCAjw3qGYBhBSEiwAcnTRLsm6NgoC5c4RNRvHNrIdsw_hR3Mq6CmDCsDInY44sKd22o3bXg87bBoC4VEQAvD_BwE" target="_blank">
+        freeeプロジェクト管理
+      </a>
+    </li>
+    <li>
+      <a href="https://www.teamspirit.com/ja-jp/lp/pj01l/?utm_source=google&utm_medium=cpc&utm_campaign=generalkousu&gclid=CjwKCAjw3qGYBhBSEiwAcnTRLlIoWp5IxfebfGWkLm9vgGdCJXmC7-pSQ9kOhQANJHls2PjRFPFpNRoC1yEQAvD_BwE" target="blank">
+        TeamSprit
+      </a>
+    </li>
+  </ul>
+
+  <h2>
+    デモンストレーション
+  </h2>
+
+  <p>
+    <span class="mirror-rotate">
+      直感的に操作できるように作ってあります。いろいろとドラッグ＆ドロップかフリックで
+    </span>
+  </P>
+
+  <!-- Create a div where the graph will take place -->
+  <div id="my_dataviz"></div>
+
+
+  <div class="control_panel">
+    <span class="control_title">コントロール</span>
+    <div>
+      <label for="produnction-volue">MC生産実績(台/月): </label>
+      <input type="number" id="production-volume" min="30000" max="90000" value="70000">
+    </div>
+    <div>
+      <a href="https://newsroom.mazda.com/ja/publicity/release/" target="_blank">MC生産台数実績　確認</a>
+    </div>
+    <label for="co-input">係数スライダ(0.50〜1.50): </label>
+    <input type="range" name="coefficient" id="co-input" min="0.5" max="1.5" step="0.01" value="1.0">
+    <div>
+      <span>稼働算出見込み前提(台/月): </span>
+      <span id="pd-v"></span>
+      <span id="input_indicator"></span>
+      <span id="pd-pro"></span>
+    </div>
+  </div>
+
+
+  <div id="my_table"></div>
+
+  <h2>
+    プロダクション
+  </h2>
+  <p class="first">
+    という感じで、以上が簡単な紹介。いろいろ微調整かけたアプリは下のリンク<br>
+  </p>
+
+  <div class="production-link">
+    <a href="{% url 'sample' %}">Sample Data</a><small> (サンプルデータ付き)</small>
+  </div>
+  <div class="production-link">
+    <a href="{% url 'dv-production' %}">Capacity Visualizer</a><small> (データのアップロードできるやつ)</small>
+  </div>
+  <div class="shout">Enjoy!</div>
+
+  <p>
+    だいたいこんな感じです。メイン機能　JavaScriptで実装してます。
+    デザイン周りは適当です。
+  </p>
+  <p>
+    本質は、データの可視化と対話的操作です。
+    結局、データを<strong>「可視化して、積み上げたり、組み入れたり、組み換えたり、入れ替えたり」</strong>
+    できるってところが本質なので、工数の積み上げだったり、スタッフの業務管理だったり、
+    財務的なとこで言うと予算の編成だったり、あたりに使えるかなって感じです。
+    これでざくっと編成決打ちしてしまって、ダウンロードしたデータにエクセルでピボットかませるとかして使うのが理想的。
+  </p>
+  <p>
+    下の方、細かい仕様。
+  </p>
+
+  <h2>技術スタック</h2>
+
+  <p>とりあえずソースコードは個人のリポジトリ<br>
+    <a href="https://github.com/Kazuki-Maehara/Capacity_Visualization">
+      https://github.com/Kazuki-Maehara/Capacity_Visualization
+    </a>
+  </p>
+  <p>
+    使ってる技術関係は以下にまとめてるので参照。わりかし日本でもメジャーなものばっかりなので、
+    そこそこ日本語のドキュメントあると思います。
+  </p>
+
+  <h3>インフラ周り</h3>
+  <dl>
+    <dt><a href="https://aws.amazon.com/jp/">AWS - Amazon Web Service</a></dt>
+    <dd>クラウドプラットフォーム。今回はEC2, ECSあたりがメイン。</dd>
+
+    <dt><a href="https://www.terraform.io/">Terraform</a></dt>
+    <dd>いわゆるIaC - Infrastructure as Code、クラウドリソースのプロビジョニングに。</dd>
+  </dl>
+
+  <h3>仮想化技術</h3>
+  <dl>
+    <dt><a href="https://www.docker.com/">Docker</a></dt>
+    <dd>コンテナ仮想化による開発環境と実行環境との調整とか</dd>
+  </dl>
+
+  <h3>Webサーバ</h3>
+  <dl>
+    <dt><a href="https://www.nginx.co.jp/">Nginx</a></dt>
+    <dd>使ったことなかったけど流行ってるみたいなので。ロードバランシングとかに強い？</dd>
+  </dl>
+
+  <h3>アプリケーションサーバ周り</h3>
+  <dl>
+    <dt><a href="https://docs.python.org/ja/3/">Python</a></dt>
+    <dd>割と有名になってる感じの言語、AI分野とか？</dd>
+    <dt><a href="https://docs.djangoproject.com/ja/4.1/">Django</a></dt>
+    <dd>バックエンドで動かしてます</dd>
+  </dl>
+
+  <h3>フロントエンド</h3>
+  <dl>
+    <dt><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript">JavaScript</a></dt>
+    <dd>クライアントサイド全般で</dd>
+    <dt><a href="https://d3js.org/">D3.js</a></dt>
+    <dd>今回のメイン機能実装で使用したライブラリ。Data-Driven Documents - データ駆動型文書、みたいな。もっといろいろできそう</dd>
+    <dt><a href="https://developer.mozilla.org/ja/">HTML, CSS</a></dt>
+    <dd>Web系の基本要素ってことで</dd>
+  </dl>
+
+  <h3>セキュリティ</h3>
+  <p>
+    一応、TLS/SSL通信させてます。実際は、データをネットワークに飛ばさずに、
+    ローカルのブラウザ上で処理してしまっているので、形だけ。
+    最近のブラウザはhttps通信推奨されてるので、その辺は警告出ない感じで。
+  </p>
+  <p>その他、ログイン認証機能も一応つけてます。</p>
+
+
+  <script type="module">
+    import {
+      drag
+    } from "https://cdn.skypack.dev/d3-drag@3";
+    const handler = drag();
+  </script>
+  <script src="{% static '/js/introduction.js' %}"></script>
+
+</body>
+
+</html>
